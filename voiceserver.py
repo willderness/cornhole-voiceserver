@@ -1,12 +1,13 @@
 import requests
 from flask import Flask, session, redirect, url_for, escape, request
 
+lightserverAddr = 'http://localhost:2000/'
+
 app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return '''Voice Server'''
-
+    return '''Voice Server''' 
 
 zonemap = [ ["all", "house", "cornhole", 'whole'],
             ['living room'],
@@ -45,7 +46,7 @@ def autovoice(com):
       level = '0'
    
    if zone != '-1':
-      url = 'http://kale:2000/zone/' + zone + '/' +  level
+      url = lightserverAddr + 'zone/' + zone + '/' +  level
       print(com + ":" + url)
       resp = requests.get(url).content
    else:
@@ -53,10 +54,5 @@ def autovoice(com):
 
    return resp
       
-
-
-
-# set the secret key.  keep this really secret:
-app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
 app.run(host='0.0.0.0', debug=True, port=2004)
 
